@@ -1,0 +1,58 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1><i class="fa fa-sign-in"></i> Sign In</h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Dashbaord</a></li>
+    <li class="active">Sign In</li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="login-box">
+    <div class="login-box-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <p class="text-danger" *ngIf="hasError">
+        {{errorMessage}}
+      </p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group has-feedback">
+          <input type="email" class="form-control" formControlName="username" placeholder="Email" />
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          <div *ngIf="isFormSubmitted && f.username.errors" class="text-danger">
+            <div *ngIf="f.username.errors.required">
+              Email is required
+            </div>
+            <div *ngIf="f.username.errors.email">
+              Email is invalid
+            </div>
+          </div>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="password" class="form-control" formControlName="password" placeholder="Password" />
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <div *ngIf="isFormSubmitted && f.password.errors" class="text-danger">
+            <div *ngIf="f.password.errors.required">
+              Password is required
+            </div>
+            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="submit" [disabled]="isLoading" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+      <a routerLink="/auth/register" class="text-center cursor-pointer">Register a new membership</a>
+    </div>
+    <!-- /.login-box-body -->
+  </div>
+  <!-- /.login-box -->
+
+</section>
+<!-- /.content -->

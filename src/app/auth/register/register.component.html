@@ -1,0 +1,111 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1><i class="fa fa-sign-out"></i> Sign Up</h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Dashbaord</a></li>
+    <li class="active">Sign Up</li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="register-box">
+    <div class="register-box-body">
+      <p class="login-box-msg">Register a new membership</p>
+
+      <p class="text-danger" *ngIf="hasError">
+        {{errorMessage}}
+      </p>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group has-feedback">
+          <input type="text" class="form-control" formControlName="first_name" placeholder="First Name" />
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          <div *ngIf="isFormSubmitted && f.first_name.errors" class="text-danger">
+            <div *ngIf="f.first_name.errors.required">First Name is required</div>
+          </div>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="text" class="form-control" formControlName="last_name" placeholder="Last Name" />
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          <div *ngIf="isFormSubmitted && f.last_name.errors" class="text-danger">
+            <div *ngIf="f.last_name.errors.required">Last Name is required</div>
+          </div>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="text" class="form-control" formControlName="email" placeholder="Email" />
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          <div *ngIf="isFormSubmitted && f.email.errors" class="text-danger">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.email">Invalid Email</div>
+          </div>
+        </div>
+
+        <div class="form-group has-feedback">
+          <input type="text" (keypress)="mobileNumberValidation($event)" class="form-control" formControlName="mobile"
+            placeholder="Mobile" />
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          <div *ngIf="isFormSubmitted && f.mobile.errors" class="text-danger">
+            <div *ngIf="f.mobile.errors.required">Mobile Number is required</div>
+            <div *ngIf="f.mobile.errors.minlength">Invalid Mobile Number</div>
+            <div *ngIf="f.mobile.errors.maxlength">Invalid Mobile Number</div>
+          </div>
+        </div>
+
+        <div class="form-group has-feedback">
+          <span>Gender</span>
+          <div class="form-control">
+            <input type="radio" formControlName="gender" name="gender" value="male"> Male
+            <input type="radio" formControlName="gender" name="gender" value="female"> Female
+            <input type="radio" formControlName="gender" name="gender" value="other"> Other
+          </div>
+          <div *ngIf="isFormSubmitted && f.gender.errors" class="text-danger">
+            <div *ngIf="f.gender.errors.required">Gender is required</div>
+          </div>
+        </div>
+
+        <div class="form-group has-feedback">
+          <input type="password" (input)="validatePassword()" class="form-control" formControlName="password"
+            placeholder="Password" />
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <div *ngIf="isFormSubmitted && f.password.errors" class="text-danger">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+          </div>
+        </div>
+
+        <div class="form-group has-feedback">
+          <input type="password" (input)="validatePassword()" class="form-control"
+            formControlName="password_confirmation" placeholder="Confirm Password" />
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <div *ngIf="isFormSubmitted && f.password_confirmation.errors" class="text-danger">
+            <div *ngIf="f.password_confirmation.errors.required">Confirm Password is required</div>
+            <div
+              *ngIf="registerForm.get('password_confirmation').touched && registerForm.get('password_confirmation').hasError('passwordsNotMatch')">
+              Confirm Password Does'nt match Password</div>
+          </div>
+        </div>
+
+        <div class="form-group has-feedback">
+          <span>Birth Date</span>
+          <ng-datepicker formControlName="dob"></ng-datepicker>
+          <div *ngIf="isFormSubmitted && f.dob.errors" class="text-danger">
+            <div *ngIf="f.dob.errors.required">Birth date is required</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <button [disabled]="isLoading" type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+      <a routerLink="/auth/login" class="text-center cursor-pointer">I already have a membership</a>
+    </div>
+    <!-- /.form-box -->
+  </div>
+
+</section>
+<!-- /.content -->
